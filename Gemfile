@@ -36,6 +36,7 @@ end
 group :test do 
   gem 'selenium-webdriver', '2.43.0'
   gem 'capybara', '2.4.3'
+  gem 'factory_girl_rails', '4.4.1'
 end
 
 # Use unicorn as the app server

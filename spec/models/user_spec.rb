@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
   before {
-    @user = User.new(name: 'eva',
-                     email: 'evayuhz@gmail.com',
-                     password: 'foobar',
-                     password_confirmation: 'foobar')
+    @user = build(:user)
   }
 
   subject { @user }
@@ -18,4 +15,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:teams)}
+
+  it { should be_valid }
 end
