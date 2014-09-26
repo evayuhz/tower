@@ -7,7 +7,8 @@ RSpec.describe Team, :type => :model do
   subject { @team }
 
   it { should respond_to(:name) }
-  it { should respond_to(:leader)}
+  it { should respond_to(:leader) }
+  it { should respond_to(:projects) }
 
   it { should be_valid }
 end

@@ -10,4 +10,10 @@ FactoryGirl.define do
     leader
     name 'team1'
   end
+
+  factory :project do 
+    name 'project1'
+    description 'desc for project1'
+    team
+  end
 end
