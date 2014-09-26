@@ -1,5 +1,5 @@
 FactoryGirl.define do 
-  factory :user, aliases: [:leader] do
+  factory :user, aliases: [:leader, :assigned_user, :author] do
     sequence(:name)  { |n| "persion#{n}" }
     sequence(:email) { |n| "persion#{n}@gmail.com" }
     password 'foobar'
@@ -15,5 +15,12 @@ FactoryGirl.define do
     name 'project1'
     description 'desc for project1'
     team
+  end
+
+  factory :todo do
+    content 'todo1: get a job'
+    assigned_user
+    author
+    end_time '2014-10-01'
   end
 end

@@ -3,5 +3,5 @@ class Project < ActiveRecord::Base
   validates :team_id, presence: true
 
   belongs_to :team
-  
+  has_many :todos, dependent: :destroy
 end

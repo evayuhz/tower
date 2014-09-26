@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926152626) do
+ActiveRecord::Schema.define(version: 20140926160435) do
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -33,6 +33,22 @@ ActiveRecord::Schema.define(version: 20140926152626) do
   end
 
   add_index "teams", ["leader_id"], name: "index_teams_on_leader_id", using: :btree
+
+  create_table "todos", force: true do |t|
+    t.text     "content"
+    t.integer  "assigned_to"
+    t.date     "end_time"
+    t.integer  "status",      default: 0
+    t.integer  "author_id"
+    t.integer  "priority",    default: 0
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "todos", ["assigned_to"], name: "index_todos_on_assigned_to", using: :btree
+  add_index "todos", ["project_id"], name: "index_todos_on_project_id", using: :btree
+  add_index "todos", ["status"], name: "index_todos_on_status", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
