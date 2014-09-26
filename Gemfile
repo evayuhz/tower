@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
@@ -27,7 +27,16 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+
+group :development, :test do
+  gem 'rspec-rails', '3.1.0'
+end
+
+group :test do 
+  gem 'selenium-webdriver', '2.43.0'
+  gem 'capybara', '2.4.3'
+end
 
 # Use unicorn as the app server
 # gem 'unicorn'
