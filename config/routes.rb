@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  root "users#show"
+
+  resources :sessions, only: [:new, :create, :destroy]
+  get '/signin' => 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+
+  resources :users
+  resources :projects
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

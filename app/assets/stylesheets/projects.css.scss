@@ -1,0 +1,56 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.page .projects {
+  padding: 28px 40px 0 0;
+}
+
+.page .project {
+  display: block;
+  width: 200px;
+  height: 180px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  float: left;
+  position: relative;
+  .name {
+    display: block;
+    font-size: 17px;
+    color: #333333;
+    line-height: 18px;
+    text-align: center;
+    margin: 30px 5px;
+  }
+  .desc {
+    display: block;
+    height: 36px;
+    font-size: 14px;
+    color: #999999;
+    line-height: 18px;
+    text-align: center;
+    margin: 10px 15px 0 15px;
+    overflow: hidden;
+    word-break: break-word;
+  }
+}
+.page .project:hover {
+  background: #f9f9f9;
+  border: 1px solid #eaeaea;
+}
+
+.project-header {
+  padding: 30px 2px 26px;
+  background: url(/assets/project-head-border-f490b2543775260c325669884580a082.png) repeat-x 0 100%;
+  .project-title {
+    display: inline-block;
+    max-width: 580px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid transparent;
+    font-size: 28px;
+    line-height: 28px;
+    color: #555;
+    text-align: left;
+    word-wrap: break-word;
+  }
+}
+

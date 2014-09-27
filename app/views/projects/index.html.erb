@@ -1,0 +1,11 @@
+<div class="page">
+  <div class="projects">
+    <% @projects.each do |project| %>
+      <a href= <%= project_path(project) %> class="project <%= dom_id(project) %>" >
+        <span 
+        <span class="name"><%= project.name %></span>
+        <span class="desc"><%= project.description %></span>
+      </a>
+    <% end %>
+  </div>
+</div>

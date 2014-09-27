@@ -1,0 +1,31 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.member-info {
+  padding: 20px 40px 40px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.member-info .gravatar {
+  float: left;
+  width: 76px;
+  height: 76px;
+  margin-top: 2px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+}
+.member-info .info {
+  margin-left: 100px;
+}
+
+.member-info .info h2 {
+  font-size: 28px;
+  font-weight: normal;
+  color: #333;
+  text-align: left;
+  margin: 0;
+  line-height: 36px;
+}
+
