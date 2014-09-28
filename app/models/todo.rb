@@ -11,4 +11,12 @@ class Todo < ActiveRecord::Base
 
   default_scope { where.not(status: statuses[:deleted]) }
   scope :incomplete, -> { where.not(status: statuses[:completed]) }
+
+  def assigned_user_name
+    self.assigned_to ? self.assigned_to.name : "未指派"
+  end
+
+  def end_time_format
+    self.assigned_to ? self.assigned_to.end_time : "没有截止时间"
+  end
 end

@@ -12,7 +12,12 @@
     <ul class="todos" id="todos-uncompleted">
       <%= render @todos %>
     </ul>
-    <%= link_to "添加新任务", new_project_todo_path(@project) %>
+    <ul>
+      <li><%= link_to "添加新任务", new_project_todo_path(@project), id: "add_new_todo" %></li>
+      <li>
+        <%= render "todos/form" %>
+      </li>
+    </ul>
     <ul class="todos" id="todos-completed">
       <%= render @completed_todos %>
     </ul>

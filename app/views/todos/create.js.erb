@@ -1,0 +1,8 @@
+<% if @todo.errors.any? %>
+  <% if @todo.errors[:centent] %>
+    $("#todo_content").addClass("error");
+  <% end %>
+<% else %>
+  $("<%= j render @todo %>").appendTo('#todos-uncompleted');
+  $("#todo_form")[0].reset();
+<% end %>
