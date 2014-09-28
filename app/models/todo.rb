@@ -2,7 +2,7 @@ class Todo < ActiveRecord::Base
   validates :content, presence: true
   validates :author_id, presence: true
 
-  enum status: [:new_created, :in_progress, :suspend, :completed, :deleted]
+  enum status: [:new_created, :in_progress, :suspend, :reopened, :completed, :deleted]
   enum priority: [:normal, :high]
 
   belongs_to :project

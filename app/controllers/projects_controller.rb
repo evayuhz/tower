@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
 
   def show
     @todos = @project.todos.incomplete
+    @completed_todos = @project.todos.completed
   end
 
   def edit

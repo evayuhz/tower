@@ -1,0 +1,14 @@
+$(document).ready(function(){
+  $('.todo_checkbox').on('change', function(){
+    var new_status = "completed";
+    if(!$(this).is(':checked')){
+      new_status = "reopened" ;
+    }
+
+    $.ajax({ 
+      url: "/projects/" + $(this).data('project') + "/todos/" + $(this).data('todo') + "/complete",
+      type: 'PUT',
+      data: {"status": new_status }
+    });
+  });
+});

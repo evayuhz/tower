@@ -1,0 +1,5 @@
+<% if @todo.completed? %>
+  $("#<%= dom_id @todo %>").prependTo('#todos-completed');
+<% else %>
+  $("#<%= dom_id @todo %>").appendTo('#todos-uncompleted');
+<% end %>

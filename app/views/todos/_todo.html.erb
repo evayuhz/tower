@@ -1,0 +1,4 @@
+<li class="todo" id="<%= dom_id todo %>">
+  <span><%= check_box_tag "todo[#{todo.id}][status]", todo.status, todo.completed?, class: "todo_checkbox", "data-project" => @project.id, "data-todo" => todo.id  %></span>
+  <%= link_to todo.content, [@project, todo] %>
+</li>
