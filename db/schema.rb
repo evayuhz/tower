@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926160435) do
+ActiveRecord::Schema.define(version: 20140928152248) do
+
+  create_table "project_members", force: true do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+  end
+
+  add_index "project_members", ["project_id", "user_id"], name: "index_project_members_on_project_id_and_user_id", unique: true, using: :btree
+  add_index "project_members", ["project_id"], name: "index_project_members_on_project_id", using: :btree
+  add_index "project_members", ["user_id"], name: "index_project_members_on_user_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -24,6 +33,18 @@ ActiveRecord::Schema.define(version: 20140926160435) do
 
   add_index "projects", ["name"], name: "index_projects_on_name", using: :btree
   add_index "projects", ["team_id"], name: "index_projects_on_team_id", using: :btree
+
+  create_table "team_members", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.integer  "role",       default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_members", ["team_id", "user_id"], name: "index_team_members_on_team_id_and_user_id", unique: true, using: :btree
+  add_index "team_members", ["team_id"], name: "index_team_members_on_team_id", using: :btree
+  add_index "team_members", ["user_id"], name: "index_team_members_on_user_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name"

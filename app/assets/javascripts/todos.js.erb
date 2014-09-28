@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on("page:change",function(){
   $('.todo_checkbox').on('change', function(){
     var new_status = "completed";
     if(!$(this).is(':checked')){

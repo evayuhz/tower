@@ -11,6 +11,9 @@ class TodosController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @team = @project.team
   end
 
   def complete

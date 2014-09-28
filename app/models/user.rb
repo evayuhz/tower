@@ -8,8 +8,19 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  has_many :teams, foreign_key: 'leader_id'
-  has_many :projects, through: :teams
+  has_many :teams, class_name: "Team", foreign_key: 'leader_id', dependent: :destroy
+
+  TeamMember.roles.each do |role, value|
+    has_many "join_as_#{role}_team_members".to_sym, ->{ where(role: value) }, 
+                                        class_name: "TeamMember",
+                                        foreign_key: "user_id",
+                                        dependent: :destroy
+    has_many "join_as_#{role}_teams".to_sym, through: "join_as_#{role}_team_members".to_sym
+  end
+
+  has_many :project_members, dependent: :destroy
+  has_many :projects, through: :teams, dependent: :destroy
+
 
   before_create :create_remember_token
 

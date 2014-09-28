@@ -6,10 +6,13 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = current_user.projects
+    @team = Team.find(params[:team_id])
+    @projects = @team.projects.select { |project| project.visiable?(current_user)}
+    render_403 if !@team.visiable?(current_user)
   end
 
   def show
+    @team = @project.team
     @todos = @project.todos.incomplete
     @completed_todos = @project.todos.completed
     @todo = @project.todos.new
@@ -30,7 +33,7 @@ class ProjectsController < ApplicationController
     end
 
     def correct_user
-      if current_user != @project.team.leader # todo: should be team member
+      if !@project.visiable?(current_user)
         render_403
       end
     end

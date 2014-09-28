@@ -6,13 +6,18 @@ Rails.application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   resources :users
-  resources :projects do 
+
+  resources :projects, only: [:show, :edit, :update, :delete] do 
     resources :todos, except: [:index] do 
       member do 
         put 'complete'
       end
     end
   end
+
+  resources :teams, shallow: true do
+    resources :projects, only: [:index, :new, :create]
+  end 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
