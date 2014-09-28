@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @todos = @project.todos.incomplete
   end
 
   def edit

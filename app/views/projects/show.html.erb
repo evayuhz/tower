@@ -6,4 +6,14 @@
       <span class="project-desc"><%= @project.description %></span>
     </div>
   </div>
+
+  <h3>任务</h3>
+  <div class="todolist">
+    <ul class="todos todos-uncompleted">
+      <% @todos.each do |todo| %>
+        <li><%= link_to todo.content, [@project, todo] %></li>
+      <% end %>
+    </ul>
+    <%= link_to "添加新任务", new_project_todo_path(@project) %>
+  </div>
 </div>

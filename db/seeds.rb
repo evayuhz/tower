@@ -20,3 +20,7 @@ project = Project.first
 project.todos.create(content: 'todo1: get a job', assigned_to: user.id, author_id: user.id, end_time: '2014-10-1')
 
 other_team.projects.create(name: "other team project", description: "desc for other team project")
+
+Todo.statuses.each do |status, value|
+  project.todos.create!(content: "#{status}", status: value, author_id: user.id)
+end
