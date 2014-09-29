@@ -13,7 +13,7 @@ function set_todo_end_time(){
   });
 }
 
-$(document).on("page:change",function(){
+function complete_todo(){
   $('.todo_checkbox').on('change', function(){
     var new_status = "completed";
     if(!$(this).is(':checked')){
@@ -26,22 +26,35 @@ $(document).on("page:change",function(){
       data: {"status": new_status }
     });
   });
+}
 
+function cancal_todo(){
+  $(".btn-cancel-todo").click(function(){
+    $("#todo_content").removeClass("error");
+    $("#add_new_todo").show();
+    $("#todo_form")[0].reset();
+    $("#todo_form").hide();
+    return false;
+  });
+}
+
+$(document).on("page:change",function(){
+  complete_todo();
   $("#todo_form").hide();
   $("textarea").autogrow();
 
   $("#add_new_todo").click(function(){
     $("#add_new_todo").hide();
     $("#todo_form").show();
+    $("#todo_form #todo_content").focus();
     return false;
   });
-
-  $(".btn-cancel-todo").click(function(){
-    $("#todo_content").removeClass("error");
-    $("#add_new_todo").show();
-    $("#todo_form").hide();
-    return false;
-  });
-
+  cancal_todo();
   set_todo_end_time();
 });
+
+$(document).ajaxComplete(function(){
+  complete_todo();
+  cancal_todo();
+});
+

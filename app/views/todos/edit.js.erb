@@ -1,0 +1,4 @@
+$('#todo_form').replaceWith("<%= j render 'form' %>");
+$("#add_new_todo").hide();
+$(window).scrollTop($("#todo_form").offset().top - 80 );
+$("#todo_content").focus();

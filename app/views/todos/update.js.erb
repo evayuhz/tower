@@ -1,0 +1,11 @@
+<% if @todo.errors.any? %>
+  <% if @todo.errors[:centent] %>
+    $("#todo_content").addClass("error");
+  <% end %>
+<% else %>
+  $("#<%= dom_id @todo %>").replaceWith("<%= j render @todo %>");
+  $(window).scrollTop($("#<%= dom_id @todo %>").offset().top - 20 );
+  $("#todo_form")[0].reset();
+  $("#todo_form").hide();
+  $("#add_new_todo").show();
+<% end %>

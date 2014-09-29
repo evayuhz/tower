@@ -1,4 +1,5 @@
 class Todo < ActiveRecord::Base
+  include SoftDelete
   validates :content, presence: true
   validates :author_id, presence: true
 
