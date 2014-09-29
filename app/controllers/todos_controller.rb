@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_project
+  after_action :create_event, only: [:create, :update, :destroy, :complete]
   def new
   end
 
@@ -38,5 +39,13 @@ class TodosController < ApplicationController
 
     def set_project
       @project = Project.find(params[:project_id])
+    end
+
+    def create_event
+      if @todo.attrs_changed_desc
+        @todo.attrs_changed_desc.each do |desc|
+          @todo.events.create(description: desc, user_id: current_user.id )
+        end
+      end
     end
 end

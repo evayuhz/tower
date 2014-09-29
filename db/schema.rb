@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928152248) do
+ActiveRecord::Schema.define(version: 20140929140111) do
+
+  create_table "events", force: true do |t|
+    t.integer  "eventable_id"
+    t.string   "eventable_type"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "events", ["eventable_id", "eventable_type"], name: "index_events_on_eventable_id_and_eventable_type", using: :btree
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "project_members", force: true do |t|
     t.integer "project_id"
