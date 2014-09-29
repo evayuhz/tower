@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @team = @project.team
     @todos = @project.todos.incomplete
     @completed_todos = @project.todos.completed
     @todo = @project.todos.new
@@ -30,6 +29,7 @@ class ProjectsController < ApplicationController
   private
     def set_project
       @project = Project.find(params[:id])
+      @team = @project.team
     end
 
     def correct_user

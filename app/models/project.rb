@@ -9,16 +9,20 @@ class Project < ActiveRecord::Base
                      through: :project_members, dependent: :destroy
 
   def visiable?(user)
-    # 是此项目所在团队的超级管理员(leader)
-    # 或是此项目的成员
-    # 或是此项目所在团队的管理员
-    if team.leader == user || members.include?(user)
-      true
-    elsif team.admin_members.include?(user)
-      true
-    else
-      false
-    end
+    # 只有项目成员才能访问项目，即使是项目所在团队的超级管理员或管理员也不到自己没加入的项目
+    members.include?(user)
+    
+    # not used
+    # # 是此项目所在团队的超级管理员(leader)
+    # # 或是此项目的成员
+    # # 或是此项目所在团队的管理员
+    # if team.leader == user || members.include?(user)
+    #   true
+    # elsif team.admin_members.include?(user)
+    #   true
+    # else
+    #   false
+    # end
   end
 end
 

@@ -5,7 +5,9 @@
       <nav>
         <ul class="nav">
           <% if signed_in? %>
+            <% if @team %>
             <li><%= link_to "项目", team_projects_path(@team) %></li>
+            <% end %>
             <li><%= link_to "动态", "#" %></li>
           <% end %>
         </ul>
