@@ -1,4 +1,5 @@
 <li class="todo" id="<%= dom_id todo %>">
   <span><%= check_box_tag "todo[#{todo.id}][status]", todo.status, todo.completed?, class: "todo_checkbox", "data-project" => @project.id, "data-todo" => todo.id  %></span>
   <%= link_to todo.content, [@project, todo] %>
+  <span class="todo_label_info <%= 'delay' if todo.delay? %>"><%= todo.assigned_and_end_time_info %></span>
 </li>

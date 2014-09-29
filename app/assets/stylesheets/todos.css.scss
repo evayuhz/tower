@@ -41,7 +41,7 @@ textarea.no-border.error {
   box-shadow: inset 0 0 0 transparent;
 }
 
-#todo_form .todo-label {
+.todo_label_info {
   display: inline-block;
   margin: 2px 0 0 5px;
   padding: 2px 6px 2px;
@@ -59,9 +59,13 @@ textarea.no-border.error {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
+.todo_label_info.delay {
+  color: #d45d51;
+  background: #fbdbdb;
+}
 
 #todo_form .buttons {
-margin: 8px 0 10px 0;
+  margin: 8px 0 10px 0;
 }
 
 

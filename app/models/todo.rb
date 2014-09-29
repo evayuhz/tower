@@ -13,10 +13,21 @@ class Todo < ActiveRecord::Base
   scope :incomplete, -> { where.not(status: statuses[:completed]) }
 
   def assigned_user_name
-    self.assigned_to ? self.assigned_to.name : "未指派"
+    self.assigned_to ? self.assigned_user.name : "未指派"
   end
 
   def end_time_format
-    self.assigned_to ? self.assigned_to.end_time : "没有截止时间"
+    self.end_time ? self.end_time : "没有截止时间"
+  end
+
+  def assigned_and_end_time_info
+    "#{assigned_user_name} #{end_time_format}"
+  end
+
+  def delay?
+    if self.end_time
+      return self.end_time < Time.now
+    end
+    false
   end
 end

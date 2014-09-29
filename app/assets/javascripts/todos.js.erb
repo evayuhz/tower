@@ -1,3 +1,18 @@
+function set_todo_end_time(){
+  var yearFrom=new Date().getFullYear();
+  var yearTo=new Date().getFullYear() + 10;
+  $("#todo_end_time").datepicker({
+    showOn: "button",
+    buttonImage: "<%= asset_path('calendar.png', alt: '选择日期') %>",
+    buttonImageOnly: true,
+    dateFormat: 'yy-mm-dd',
+    changeYear: true,
+    changeMonth: true,
+    yearRange: yearFrom+":"+yearTo,
+    minDate: new Date()
+  });
+}
+
 $(document).on("page:change",function(){
   $('.todo_checkbox').on('change', function(){
     var new_status = "completed";
@@ -28,5 +43,5 @@ $(document).on("page:change",function(){
     return false;
   });
 
-
+  set_todo_end_time();
 });

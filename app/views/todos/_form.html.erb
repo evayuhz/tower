@@ -1,6 +1,10 @@
 <%= form_for([@project, @todo], html: { id: "todo_form" }, remote: true) do |f| %>
   <div class="form-body">
     <%= f.text_area :content, class: "todo-content no-border", placeholder: "新的任务" %>
+    <%= f.label :assigned_to, "将任务指派给"%>
+    <%= f.select :assigned_to, options_from_collection_for_select(@project.members, :id, :name, @todo.assigned_to), { include_blank: "请选择" } %>
+    <%= f.label :end_time, "任务截止时间"%>
+    <%= f.text_field :end_time, { readonly: "readonly"} %>
   </div>
   <div class="buttons">
     <%= f.submit "确定", class: "btn, btn-primary" %>
