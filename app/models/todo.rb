@@ -16,7 +16,8 @@ class Todo < ActiveRecord::Base
   scope :incomplete, -> { where.not(status: statuses[:completed]) }
 
   attr_accessor :attrs_changed_desc
-  before_save :create_changed_event_desc
+  before_create :create_created_event_desc
+  before_update :create_updated_event_desc
 
   def assigned_user_name
     self.assigned_to ? self.assigned_user.name : "未指派"
@@ -49,7 +50,7 @@ class Todo < ActiveRecord::Base
       return "重新打开了任务" if reopened?
     end
 
-    def assigned_desc
+    def assigned_to_desc
       assigned_to_was ? "把#{User.find(assigned_to_was).name}的任务指派给 #{assigned_user.name}" :
                              "给#{assigned_user.name}指派了任务"
     end
@@ -58,11 +59,18 @@ class Todo < ActiveRecord::Base
        "将任务完成时间从 #{end_time_was ? end_time_was : '没有截止时间' } 修改为 #{end_time_format} "
     end
 
-    def create_changed_event_desc()
-      track_attrs = [:created_at, :status, :assigned_to, :end_time]
+    def create_created_event_desc
+      self.attrs_changed_desc = []
+      if self.new_record?
+        self.attrs_changed_desc << created_at_desc
+      end
+    end
+
+    def create_updated_event_desc
+      track_attrs = [:status, :assigned_to, :end_time]
       self.attrs_changed_desc = []
       track_attrs.each do |attr|
-        self.attrs_changed_desc << self.send("#{attr}_desc") if ((attr == :created_at ) ? self.new_record? : self.send("#{attr}_changed?"))
+        self.attrs_changed_desc << self.send("#{attr}_desc") if self.send("#{attr}_changed?")
       end
     end
 end

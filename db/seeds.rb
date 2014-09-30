@@ -22,6 +22,10 @@ other_as_admin_team.team_members.create(user_id: user.id, role: 0)
 other_as_member_team.team_members.create(user_id: user.id, role: 1)
 other_as_visitor_team.team_members.create(user_id: user.id, role: 2)
 
+# team member
+team.members << other
+
+
 # projects and todos: self team's projects and todos 
 team.projects.create([{name: 'project1', description: 'desc for project1, joined'}, 
                       {name: 'project2', description: 'desc for project2, not joined'}])
@@ -32,6 +36,10 @@ joined_project.todos.create(content: 'todo1: get a job', assigned_to: user.id, a
 Todo.statuses.each do |status, value|
   joined_project.todos.create!(content: "#{status}", status: value, author_id: user.id)
 end
+
+# project member
+joined_project.members << other
+
 
 # other team's project 
 other_admin_project = other_as_admin_team.projects.create(name: "team joined as admin, not project member")
