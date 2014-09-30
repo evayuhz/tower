@@ -1,0 +1,6 @@
+$("<%= j render 'events' %>").appendTo('#team-events');
+<% if @events.current_page > @events.total_pages %>
+  $("#loading").text("没有更多内容了");
+<% else %>
+  checkScroll();
+<% end %>

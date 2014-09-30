@@ -1,0 +1,41 @@
+<% @events_group.each do |day, day_events| %>
+  <div class="events-day  <%= (day.saturday? || day.sunday?) ? 'weekend' : '' %> ">
+    <h4 class="events-day-title"><%= event_day_format(day) %></h4>
+    <div class="events-day-content">
+    
+    <% before_project = nil %>
+    <% events = [] %>
+    <% project_events = [] %>
+    <% day_events.each do |event| %>
+      <% if event.project != before_project %>
+        <% events << project_events %>
+        <% project_events = [event.project, [event]] %>
+      <% else %>
+        <% project_events[1] << event %>
+      <% end %>
+      <% before_project = event.project %>
+    <% end %>
+    <% events.shift %>
+    <% events.each do |event| %>
+      <div class="events-ancestor">
+        <h5 class="events-ancestor-title">
+          <%= link_to event[0].name, project_path(event[0]) %>
+        </h5>
+        <% event[1].each do |e| %>
+          <div class="event" id="<%= dom_id e %>">
+            <%= link_to gravatar_for(e.user), e.user %>
+            <div class="event-main">
+              <div class="event-head">
+                <a class="event-created-at"><%= event_time_format(e.created_at) %></a>
+                <span class="event-actor"><%= link_to e.user.name, e.user %></span>
+                <span class="event-action"><%= e.description %></span>
+                <span class="event-text"><%= link_to_eventable(e) %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+<% end %>

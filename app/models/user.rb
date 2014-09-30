@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
-  def User.hash(token)
+  def User.hash_token(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
 
@@ -36,9 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def visiable_team_events(team)
-    Event.where(project_id: visiable_team_projects(team)).
-            order("created_at desc").
-            group_by {|event| event.created_at.to_date }
+    Event.includes(:project, :user, :eventable).where(project_id: visiable_team_projects(team)).order("created_at desc")
   end
   
   private
