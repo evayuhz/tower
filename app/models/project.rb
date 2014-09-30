@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
   has_many :members, class_name: "User", foreign_key: "user_id", 
                      through: :project_members, dependent: :destroy
 
+  has_many :events
+
   def visiable?(user)
     # 只有项目成员才能访问项目，即使是项目所在团队的超级管理员或管理员也不到自己没加入的项目
     members.include?(user)

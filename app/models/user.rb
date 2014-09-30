@@ -19,8 +19,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :project_members, dependent: :destroy
-  has_many :projects, through: :teams, dependent: :destroy
-
+  has_many :projects, through: :project_members, dependent: :destroy
 
   before_create :create_remember_token
 
@@ -30,6 +29,16 @@ class User < ActiveRecord::Base
 
   def User.hash(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def visiable_team_projects(team)
+    self.projects.where(team_id: team.id)
+  end
+
+  def visiable_team_events(team)
+    Event.where(project_id: visiable_team_projects(team)).
+            order("created_at desc").
+            group_by {|event| event.created_at.to_date }
   end
   
   private

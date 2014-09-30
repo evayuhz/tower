@@ -28,10 +28,13 @@ team.members << other
 
 # projects and todos: self team's projects and todos 
 team.projects.create([{name: 'project1', description: 'desc for project1, joined'}, 
-                      {name: 'project2', description: 'desc for project2, not joined'}])
+                      {name: 'project2', description: 'desc for project2, not joined'},
+                      {name: 'project3', description: 'desc for project3, joined'}])
 joined_project = Project.first
 not_joined_project = Project.second
-joined_project.project_members.create(user_id: user.id)
+project3 = Project.find(3)
+joined_project.members << user
+project3.members << user
 joined_project.todos.create(content: 'todo1: get a job', assigned_to: user.id, author_id: user.id, end_time: '2014-9-25')
 Todo.statuses.each do |status, value|
   joined_project.todos.create!(content: "#{status}", status: value, author_id: user.id)
@@ -39,6 +42,7 @@ end
 
 # project member
 joined_project.members << other
+not_joined_project.members << other
 
 
 # other team's project 
@@ -53,3 +57,24 @@ join_other_visitor_project = other_as_visitor_team.projects.create(name: "team j
 join_other_admin_project.project_members.create(user_id: user.id)
 join_other_member_project.project_members.create(user_id: user.id)
 join_other_visitor_project.project_members.create(user_id: user.id)
+
+# joined projects events
+todo1 = user.projects.first.todos.first
+todo2 = project3.todos.create(content: "joined project's todo", author_id: other.id)
+
+4.downto(0) do |n| #day
+  10.downto(1) do |t| #times
+    todo1.events.create(description: "完成了任务", user_id: user.id, project_id: todo1.project.id, created_at: n.days.ago - (4*t).minutes )
+    todo1.events.create(description: "重新打开了任务", user_id: other.id, project_id: todo1.project.id, created_at: n.days.ago - (4*t -1).minutes )
+    todo2.events.create(description: "完成了任务",  user_id: user.id, project_id: todo2.project.id, created_at: n.days.ago - (4*t -2).minutes )
+    todo2.events.create(description: "重新打开了任务",  user_id: other.id, project_id: todo2.project.id, created_at: n.days.ago - (4*t - 3).minutes )
+  end
+end
+
+# other project events
+todo = not_joined_project.todos.create(content: "not joined project's todo", author_id: other.id)
+100.downto(1) do |n|
+  todo.events.create(description: "完成了任务", user_id: other.id, project_id: todo.project.id )
+  todo.events.create(description: "重新打开了任务", user_id: other.id, project_id: todo.project.id )
+end
+

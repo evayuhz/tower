@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  before_action :signed_in_user
   before_action :set_project
   after_action :create_event, only: [:create, :update, :destroy, :complete]
   def new
@@ -44,7 +45,7 @@ class TodosController < ApplicationController
     def create_event
       if @todo.attrs_changed_desc
         @todo.attrs_changed_desc.each do |desc|
-          @todo.events.create(description: desc, user_id: current_user.id )
+          @todo.events.create(description: desc, user_id: current_user.id, project_id: @project.id )
         end
       end
     end

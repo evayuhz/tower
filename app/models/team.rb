@@ -9,6 +9,7 @@ class Team < ActiveRecord::Base
   has_many :members, class_name: "User", foreign_key: "user_id", 
                      through: :team_members, dependent: :destroy
 
+
   TeamMember.roles.each do |role, value|
     has_many "join_as_#{role}_team_members".to_sym, ->{ where(role: value) }, 
                                         class_name: "TeamMember",
@@ -21,4 +22,9 @@ class Team < ActiveRecord::Base
     # leader 和 team 成员(管理员，成员，访客)可见
     leader == user || members.include?(user)
   end
+
+  def visiable_projects(user)
+    projects.select { |p| p.visiable?(user) } 
+  end
+
 end

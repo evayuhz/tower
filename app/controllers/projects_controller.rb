@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   def index
     @team = Team.find(params[:team_id])
-    @projects = @team.projects.select { |project| project.visiable?(current_user)}
+    @projects = @team.visiable_projects(current_user)
     render_403 if !@team.visiable?(current_user)
   end
 

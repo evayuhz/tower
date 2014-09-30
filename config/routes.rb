@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :teams, shallow: true do
     resources :projects, only: [:index, :new, :create]
+    resources :events, only: :index
   end 
 
   # The priority is based upon order of creation: first created -> highest priority.
