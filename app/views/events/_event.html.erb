@@ -7,5 +7,10 @@
       <span class="event-action"><%= event.description %></span>
       <span class="event-text"><%= link_to_eventable(event) %></span>
     </div>
+    <% if event.eventable.class == Comment %>
+      <div class="event-body">
+        <p class="event-text"><%= event.eventable.content %></p>
+      </div>
+    <% end %>
   </div>
 </div>

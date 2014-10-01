@@ -1,5 +1,5 @@
 <% if @todo.completed? %>
-  <% if request.original_url.include?("todos") %>
+  <% if params[:rel_page].include?("todos") %>
     // todos#show page
     $("#<%= dom_id @todo %>").addClass("completed")
   <% else %>
@@ -7,7 +7,7 @@
     $("#<%= dom_id @todo %>").prependTo('#todos-completed');
   <% end %>
 <% else %>
-  <% if request.original_url.include?("todos") %>
+  <% if params[:rel_page].include?("todos") %>
     $("#<%= dom_id @todo %>").removeClass("completed")
   <% else %>
     $("#<%= dom_id @todo %>").appendTo('#todos-uncompleted');

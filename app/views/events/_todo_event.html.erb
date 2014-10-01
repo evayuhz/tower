@@ -5,5 +5,10 @@
       <span class="event-actor"><%= link_to event.user.name, event.user %></span>
       <span class="event-action"><%= event.description %></span>
     </div>
+    <% if event.eventable.class == Comment %>
+      <div class="event-body">
+        <p class="event-text"><%= event.eventable.content %></p>
+      </div>
+    <% end %>
   </div>
 </div>

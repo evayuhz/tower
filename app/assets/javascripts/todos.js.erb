@@ -23,7 +23,7 @@ function complete_todo(){
     $.ajax({ 
       url: "/projects/" + $(this).data('project') + "/todos/" + $(this).data('todo') + "/complete",
       type: 'PUT',
-      data: {"status": new_status }
+      data: {"status": new_status, "rel_page": window.location.pathname }
     });
   });
 }

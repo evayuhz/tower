@@ -21,6 +21,13 @@ class Todo < ActiveRecord::Base
   before_create :create_created_event_desc
   before_update :create_updated_event_desc
 
+  # include todo events and comments event
+  def all_events
+    todo_and_comment_events = [self.events, self.comments.collect{ |c| c.events } ].flatten
+
+    Event.includes(:project, :user, :eventable).where(id: todo_and_comment_events).order("created_at desc")
+  end
+
   def assigned_user_name
     self.assigned_to ? self.assigned_user.name : "未指派"
   end
