@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
 
   has_many :teams, class_name: "Team", foreign_key: 'leader_id', dependent: :destroy
 
+  has_many :team_members, dependent: :destroy
+  has_many :join_teams, through: :team_members, source: :team, dependent: :destroy
+
   TeamMember.roles.each do |role, value|
     has_many "join_as_#{role}_team_members".to_sym, ->{ where(role: value) }, 
                                         class_name: "TeamMember",
@@ -29,6 +32,12 @@ class User < ActiveRecord::Base
 
   def User.hash_token(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def visiable_teams
+    v_teams = [self.teams.collect(&:id), self.join_teams.collect(&:id)]
+
+    Team.where(id: v_teams)
   end
 
   def visiable_team_projects(team)

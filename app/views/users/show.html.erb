@@ -8,4 +8,10 @@
       </p>
     </div>
   </div>
+  <div class="user-teams">
+    <% @teams.each do |team| %>
+      <%= link_to team.name, team %>
+      </br>
+    <% end %>
+  </div>
 </div>
