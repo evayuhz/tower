@@ -7,7 +7,9 @@ ul {
 #todos-completed a{
   color: #999;
 }
-
+.todo.completed a {
+color: #999;
+}
 #todo_form .todo-content {
   display: inline-block;
   vertical-align: top;
@@ -33,7 +35,7 @@ textarea.no-border {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-textarea.no-border.error {
+textarea.error {
   border: none;
   border-bottom: 1px dotted #c21;
   -webkit-box-shadow: inset 0 0 0 transparent;

@@ -10,7 +10,9 @@ class Todo < ActiveRecord::Base
   belongs_to :assigned_user, class_name: "User", foreign_key: "assigned_to"
   belongs_to :author, class_name: "User", foreign_key: 'author_id'
 
-  has_many :events, as: :eventable
+  has_many :events, -> { includes :user }, as: :eventable
+
+  has_many :comments
 
   default_scope { where.not(status: statuses[:deleted]) }
   scope :incomplete, -> { where.not(status: statuses[:completed]) }

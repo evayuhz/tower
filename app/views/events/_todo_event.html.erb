@@ -1,0 +1,9 @@
+<div class="event" id="<%= dom_id event %>">
+  <div class="event-main">
+    <div class="event-head">
+      <a class="event-created-at"><%= todo_event_time_format(event.created_at) %></a>
+      <span class="event-actor"><%= link_to event.user.name, event.user %></span>
+      <span class="event-action"><%= event.description %></span>
+    </div>
+  </div>
+</div>

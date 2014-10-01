@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:show, :edit, :update, :delete] do 
     resources :todos, except: [:index] do 
+      resources :comments
       member do 
         put 'complete'
       end

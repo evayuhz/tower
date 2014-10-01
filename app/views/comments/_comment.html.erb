@@ -1,0 +1,15 @@
+<div class="comment" id="<%= dom_id comment %>">
+  <% user = current_user %>
+  <%= link_to gravatar_for(user), user %>
+  <div class="comment-main">
+    <div class="info">
+      <%= link_to user.name, user, class: "author" %>
+      <a class="create-time"><%= comment_event_time_format(comment.created_at) %></a>
+    </div>
+    <div class="comment-content">
+      <p>
+        <%= comment.content %>
+      </p>
+    </div>
+  </div>
+</div>

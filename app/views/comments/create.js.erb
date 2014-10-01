@@ -1,0 +1,9 @@
+<% if @comment.errors.any? %>
+  <% if @comment.errors[:content] %>
+    $("#comment_content").addClass("error");
+  <% end %>
+<% else %>
+  $("<%= j render @comment %>").appendTo('#todo-show-comments');
+  $("#new_comment")[0].reset();
+<% end %>
+

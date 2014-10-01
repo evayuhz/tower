@@ -104,7 +104,23 @@
   border-radius: 4px;
 }
 
-
+.comments .event-main {
+  margin: 0 0 0 70px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+.comments .event, .comments .event a {
+  color: #999999;
+}
+.comments .event {
+  margin: 0;
+}
+.topic {
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 30px 0;
+  margin: 20px 0 30px;
+  width: 700px;
+}
 
 
 

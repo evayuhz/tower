@@ -1,0 +1,7 @@
+<%= form_for([@project, @todo, @comment], html: { class: "form form-new-comment" }, remote: true) do |f| %>
+  <%= gravatar_for(@user) %>
+  <div class="form-field">
+    <%= f.text_area :content, class: "input-block-level" %>
+    <%= f.submit "发表评论", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

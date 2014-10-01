@@ -14,4 +14,12 @@ module ApplicationHelper
   def event_time_format(time)
     time.strftime("%H:%M")
   end
+
+  def todo_event_time_format(time)
+    time.strftime("%m-%d %H:%M")
+  end
+
+  def comment_event_time_format(time)
+    time.strftime("%m-%d %H:%M")
+  end
 end

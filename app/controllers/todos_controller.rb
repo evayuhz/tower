@@ -21,6 +21,8 @@ class TodosController < ApplicationController
   def show
     @todo = Todo.find(params[:id])
     @team = @project.team
+    @user = current_user
+    @comment = @todo.comments.new
   end
 
   def destroy
