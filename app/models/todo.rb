@@ -1,5 +1,6 @@
 class Todo < ActiveRecord::Base
   include SoftDelete
+  include EventProvider
   validates :content, presence: true
   validates :author_id, presence: true
 
@@ -14,12 +15,10 @@ class Todo < ActiveRecord::Base
 
   has_many :comments
 
-  default_scope { where.not(status: statuses[:deleted]) }
-  scope :incomplete, -> { where.not(status: statuses[:completed]) }
+  # default_scope { where.not(status: statuses[:deleted]) }
+  scope :incomplete, -> { where.not(status: [statuses[:completed], statuses[:deleted] ]) }
 
-  attr_accessor :attrs_changed_desc
-  before_create :create_created_event_desc
-  before_update :create_updated_event_desc
+  event_provider :created_at, :status, :end_time, :assigned_to
 
   # include todo events and comments event
   def all_events
@@ -68,18 +67,4 @@ class Todo < ActiveRecord::Base
        "将任务完成时间从 #{end_time_was ? end_time_was : '没有截止时间' } 修改为 #{end_time_format} "
     end
 
-    def create_created_event_desc
-      self.attrs_changed_desc = []
-      if self.new_record?
-        self.attrs_changed_desc << created_at_desc
-      end
-    end
-
-    def create_updated_event_desc
-      track_attrs = [:status, :assigned_to, :end_time]
-      self.attrs_changed_desc = []
-      track_attrs.each do |attr|
-        self.attrs_changed_desc << self.send("#{attr}_desc") if self.send("#{attr}_changed?")
-      end
-    end
 end

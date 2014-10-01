@@ -7,9 +7,8 @@
     $("#<%= dom_id @todo %>").prependTo('#todos-completed');
   <% end %>
 <% else %>
-  <% if params[:rel_page].include?("todos") %>
-    $("#<%= dom_id @todo %>").removeClass("completed")
-  <% else %>
+  $("#<%= dom_id @todo %>").removeClass("completed")
+  <% if !params[:rel_page].include?("todos") %>
     $("#<%= dom_id @todo %>").appendTo('#todos-uncompleted');
   <% end %>
 <% end %>

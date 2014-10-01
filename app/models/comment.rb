@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  include EventProvider
   validates :content, presence: true
   validates :todo_id, presence: true
   validates :user_id, presence: true
@@ -8,9 +9,7 @@ class Comment < ActiveRecord::Base
 
   has_many :events, -> { includes :user }, as: :eventable
 
-  attr_accessor :attrs_changed_desc
-  before_create :create_created_event_desc
-  # before_update :create_updated_event_desc
+  event_provider :created_at
 
   private 
     def created_at_desc
