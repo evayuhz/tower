@@ -24,7 +24,7 @@ class Todo < ActiveRecord::Base
   def all_events
     todo_and_comment_events = [self.events, self.comments.collect{ |c| c.events } ].flatten
 
-    Event.includes(:project, :user, :eventable).where(id: todo_and_comment_events).order("created_at desc")
+    Event.includes(:project, :user, :eventable).where(id: todo_and_comment_events).order("created_at asc")
   end
 
   def assigned_user_name
@@ -45,26 +45,5 @@ class Todo < ActiveRecord::Base
     end
     false
   end
-
-  private
-    def created_at_desc
-      "创建了任务"
-    end
-
-    def status_desc
-      return "开始处理这条任务" if in_progress?
-      return "完成了任务" if completed?
-      return "删除了任务" if deleted?
-      return "重新打开了任务" if reopened?
-    end
-
-    def assigned_to_desc
-      assigned_to_was ? "把#{User.find(assigned_to_was).name}的任务指派给 #{assigned_user.name}" :
-                             "给#{assigned_user.name}指派了任务"
-    end
-
-    def end_time_desc
-       "将任务完成时间从 #{end_time_was ? end_time_was : '没有截止时间' } 修改为 #{end_time_format} "
-    end
 
 end

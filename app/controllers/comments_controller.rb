@@ -14,9 +14,10 @@ class CommentsController < ApplicationController
     end
 
     def create_event
-      if @comment.attrs_changed_desc
-        @comment.attrs_changed_desc.each do |desc|
-          @comment.events.create(description: desc, user_id: current_user.id, project_id: @project.id )
+      if @comment.changed_attrs
+        @comment.changed_attrs.each do |change|
+          @comment.events.create(changed_attr: change[0], old_value: change[1], new_value: change[2],
+                              user_id: current_user.id, project_id: @project.id )
         end
       end
     end

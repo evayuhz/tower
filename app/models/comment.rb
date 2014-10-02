@@ -11,16 +11,4 @@ class Comment < ActiveRecord::Base
 
   event_provider :created_at
 
-  private 
-    def created_at_desc
-      "回复了任务"
-    end
-
-    def create_created_event_desc
-      self.attrs_changed_desc = []
-      if self.new_record?
-        self.attrs_changed_desc << created_at_desc
-      end
-    end
-
 end

@@ -2,7 +2,7 @@
   <%= render @todo %>
 </div>
 <div class="comments" id="todo-show-comments">
-  <%= render partial: "events/todo_event", collection: @todo.all_events, as: :event, locals: { show_eventable: false } %>
+  <%= render partial: "events/todo_event", collection: @todo.all_events, as: :event %>
 </div>
 <div class="comment comment-form">
   <%= render "comments/form" %>

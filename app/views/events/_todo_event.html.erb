@@ -1,14 +1,18 @@
-<div class="event" id="<%= dom_id event %>">
-  <div class="event-main">
-    <div class="event-head">
-      <a class="event-created-at"><%= todo_event_time_format(event.created_at) %></a>
-      <span class="event-actor"><%= link_to event.user.name, event.user %></span>
-      <span class="event-action"><%= event.description %></span>
-    </div>
-    <% if event.eventable.class == Comment %>
-      <div class="event-body">
-        <p class="event-text"><%= event.eventable.content %></p>
+<% if event.eventable.class == Comment %>
+  <%= render event.eventable %>
+<% else %>
+  <div class="event" id="<%= dom_id event %>">
+    <div class="event-main">
+      <div class="event-head">
+        <a class="event-created-at"><%= todo_event_time_format(event.created_at) %></a>
+        <span class="event-actor"><%= link_to event.user.name, event.user %></span>
+        <span class="event-action"><%= event.description %></span>
       </div>
-    <% end %>
+      <% if event.eventable.class == Comment %>
+        <div class="event-body">
+          <p class="event-text"><%= event.eventable.content %></p>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -9,7 +9,7 @@
         <h5 class="events-ancestor-title">
           <%= link_to events_group[0].name, project_path(events_group[0]) %>
         </h5>
-        <%= render partial: "events/event", collection: events_group[1], locals: { show_eventable: true } %>
+        <%= render events_group[1] %>
       </div>
     <% end %>
     </div>

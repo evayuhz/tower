@@ -6,35 +6,36 @@ module EventProvider
   module ClassMethods
     def event_provider(*attrs)
       class_eval do 
-        attr_accessor :attrs_changed_desc
+        attr_accessor :changed_attrs
         cattr_accessor :track_attrs
       end
       
       self.track_attrs = attrs
       if self.track_attrs.delete(:created_at)
         class_eval do 
-          before_create :create_created_event_desc
+          before_create :create_created_event
         end
       end
       if self.track_attrs.any?
         class_eval do 
-          before_update :create_updated_event_desc
+          before_update :create_updated_events
         end
       end
     end
   end
 
-  def create_created_event_desc
-    self.attrs_changed_desc = []
+  # change format: [changed_attr, old_value, new_value]
+  def create_created_event
+    self.changed_attrs = []
     if self.new_record?
-      self.attrs_changed_desc << created_at_desc
+      self.changed_attrs << [:created_at, nil, nil]
     end
   end
 
-  def create_updated_event_desc
-    self.attrs_changed_desc = []
+  def create_updated_events
+    self.changed_attrs = []
     self.track_attrs.each do |attr|
-      self.attrs_changed_desc << self.send("#{attr}_desc") if self.send("#{attr}_changed?")
+      self.changed_attrs <<  [attr, self.send("#{attr}_was"), self.send("#{attr}") ] if self.send("#{attr}_changed?")
     end
   end
 
