@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :projects, only: [:show, :edit, :update, :delete] do 
+  resources :projects, only: [:show, :edit, :update, :destroy] do 
     resources :todos, except: [:index] do 
       resources :comments
       member do 

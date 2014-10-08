@@ -27,31 +27,31 @@ team.members << other
 
 
 # projects and todos: self team's projects and todos 
-team.projects.create([{name: 'project1', description: 'desc for project1, joined'}, 
-                      {name: 'project2', description: 'desc for project2, not joined'},
-                      {name: 'project3', description: 'desc for project3, joined'}])
-joined_project = Project.first
+team.projects.create([{name: 'project1', description: 'desc for project1, own', author_id: user.id}, 
+                      {name: 'project2', description: 'desc for project2, not joined', author_id: other.id},
+                      {name: 'project3', description: 'desc for project3, joined', author_id: other.id}])
+own_project = Project.first
 not_joined_project = Project.second
-project3 = Project.find(3)
+joined_project = Project.find(3)
 joined_project.members << user
-project3.members << user
-joined_project.todos.create(content: 'todo1: get a job', assigned_to: user.id, author_id: user.id, end_time: '2014-9-25')
+
+own_project.todos.create(content: 'todo1: get a job', assigned_to: user.id, author_id: user.id, end_time: '2014-9-25')
 Todo.statuses.each do |status, value|
-  joined_project.todos.create!(content: "#{status}", status: value, author_id: user.id)
+  own_project.todos.create!(content: "#{status}", status: value, author_id: user.id)
 end
 
 # project member
-joined_project.members << other
+own_project.members << other
 not_joined_project.members << other
 
 
 # other team's project 
-other_admin_project = other_as_admin_team.projects.create(name: "team joined as admin, not project member")
-other_member_project = other_as_member_team.projects.create(name: "team joined as member, not project member")
-other_visitor_project = other_as_visitor_team.projects.create(name: "team joined as visitor, not project member")
-join_other_admin_project = other_as_admin_team.projects.create(name: "team joined as admin, is project member")
-join_other_member_project = other_as_member_team.projects.create(name: "team joined as member, is project member")
-join_other_visitor_project = other_as_visitor_team.projects.create(name: "team joined as visitor, is project member")
+other_admin_project = other_as_admin_team.projects.create(name: "team joined as admin, not project member", author_id: other.id)
+other_member_project = other_as_member_team.projects.create(name: "team joined as member, not project member", author_id: other.id)
+other_visitor_project = other_as_visitor_team.projects.create(name: "team joined as visitor, not project member", author_id: other.id)
+join_other_admin_project = other_as_admin_team.projects.create(name: "team joined as admin, is project member", author_id: other.id)
+join_other_member_project = other_as_member_team.projects.create(name: "team joined as member, is project member", author_id: other.id)
+join_other_visitor_project = other_as_visitor_team.projects.create(name: "team joined as visitor, is project member", author_id: other.id)
 
 
 join_other_admin_project.project_members.create(user_id: user.id)
@@ -59,8 +59,8 @@ join_other_member_project.project_members.create(user_id: user.id)
 join_other_visitor_project.project_members.create(user_id: user.id)
 
 # joined projects events
-todo1 = user.projects.first.todos.first
-todo2 = project3.todos.create(content: "joined project's todo", author_id: other.id)
+todo1 = own_project.todos.first
+todo2 = joined_project.todos.create(content: "joined project's todo", author_id: other.id)
 
 4.downto(0) do |n| #day
   10.downto(1) do |t| #times

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002154008) do
+ActiveRecord::Schema.define(version: 20141008031022) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(version: 20141002154008) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "author_id"
   end
 
+  add_index "projects", ["author_id"], name: "index_projects_on_author_id", using: :btree
   add_index "projects", ["name"], name: "index_projects_on_name", using: :btree
   add_index "projects", ["team_id"], name: "index_projects_on_team_id", using: :btree
 

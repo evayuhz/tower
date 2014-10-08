@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
   before_action :signed_in_user
-  before_action :set_project
+  load_and_authorize_resource :project 
+  load_and_authorize_resource :todo, through: :project
   after_action :create_event, only: [:create, :update, :destroy, :complete]
   
   def new
@@ -11,28 +12,23 @@ class TodosController < ApplicationController
   end
 
   def edit
-    @todo = Todo.find(params[:id])
   end
 
   def update
-    @todo = Todo.find(params[:id])
     @todo.update(todo_params)
   end
 
   def show
-    @todo = Todo.find(params[:id])
     @team = @project.team
     @user = current_user
     @comment = @todo.comments.new
   end
 
   def destroy
-    @todo = Todo.find(params[:id])
     @todo.destroy
   end
 
   def complete
-    @todo = Todo.find(params[:id])
     @todo.update!(status: params[:status])
   end
 
@@ -41,9 +37,6 @@ class TodosController < ApplicationController
       params.require(:todo).permit(:content, :assigned_to, :end_time)
     end
 
-    def set_project
-      @project = Project.find(params[:project_id])
-    end
 
     def create_event
       if @todo.changed_attrs

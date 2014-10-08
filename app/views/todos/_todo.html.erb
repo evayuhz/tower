@@ -3,8 +3,12 @@
   <%= link_to todo.content, [@project, todo] %>
   <span class="todo_label_info <%= 'delay' if todo.delay? %>"><%= todo.assigned_and_end_time_info %></span>
   <span class="edit_todo_label">
+    <% if can? :update, @todo %>
     <%= link_to "编辑", edit_project_todo_path(@project,todo), class: "edit_todo_link", remote: true %>
+    <% end %>
+    <% if can? :destroy, @todo %>
     <%= link_to "删除", project_todo_path(@project, todo), method: :delete,
                         data: { confirm: '确定删除?' }, class: "delete_todo_link", remote: true  %>
+    <% end %>
   </span>
 </li>

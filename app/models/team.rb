@@ -23,8 +23,4 @@ class Team < ActiveRecord::Base
     leader == user || members.include?(user)
   end
 
-  def visiable_projects(user)
-    projects.select { |p| p.visiable?(user) } 
-  end
-
 end

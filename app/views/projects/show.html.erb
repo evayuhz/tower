@@ -1,6 +1,10 @@
 <div class="page">
   <div class="project-header">
     <div class="project-hd-info">
+      <% if can? :destroy, @project %>
+        <%= link_to "删除", project_path(@project), method: :delete,
+                          data: { confirm: '确定删除?' }, class: "float-right" %>
+      <% end %>
       <span class="project-title"><%= @project.name %></span>
       <br>
       <span class="project-desc"><%= @project.description %></span>

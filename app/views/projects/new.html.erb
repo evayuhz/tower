@@ -1,2 +1,5 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<%= form_for([@team, @project], html: { id: "project_form" } ) do |f| %>
+  <%= f.text_area :name %>
+  <%= f.submit "确定", class: "btn, btn-primary" %>
+<% end %>
+

@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
   end
 
   has_many :project_members, dependent: :destroy
-  has_many :projects, through: :project_members, dependent: :destroy
+  has_many :join_projects, through: :project_members, dependent: :destroy, source: :project
+  has_many :projects, class_name: "Project", foreign_key: "author_id"
 
   before_create :create_remember_token
 
@@ -41,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def visiable_team_projects(team)
-    self.projects.where(team_id: team.id)
+    team.projects.where(id: [self.projects.collect(&:id), self.join_projects.collect(&:id)])
   end
 
   def visiable_team_events(team)
