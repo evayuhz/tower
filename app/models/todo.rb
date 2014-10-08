@@ -46,4 +46,32 @@ class Todo < ActiveRecord::Base
     false
   end
 
+  private
+    def created_at_event_content(change)
+      { action: :created_todo_event }
+    end
+
+    def status_event_content(change)
+      return { action: :deleted_todo_event } if self.deleted?
+      return { action: :completed_todo_event } if self.completed?
+      return { action: :reopened_todo_event } if self.reopened?
+    end
+
+    def assigned_to_event_content(change)
+      if change[:old_value]
+        { action: :change_assigned_to_todo_event, old_user: User.find(change[:old_value]).name , 
+                                                  new_user: User.find(change[:new_value]).name }
+      else
+        { action: :set_assigned_to_todo_event, user: User.find(change[:new_value]).name }
+      end
+    end
+
+    def end_time_event_content(change)
+      if change[:old_value]
+        { action: :change_end_time_todo_event, old_date: change[:old_value], new_date: change[:new_value] }
+      else
+        { action: :set_end_time_todo_event, date: change[:new_value] }
+      end
+    end
+
 end

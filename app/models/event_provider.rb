@@ -28,14 +28,15 @@ module EventProvider
   def create_created_event
     self.changed_attrs = []
     if self.new_record?
-      self.changed_attrs << [:created_at, nil, nil]
+      self.changed_attrs << {changed_attr: :created_at} #[:created_at, nil, nil]
     end
   end
 
   def create_updated_events
     self.changed_attrs = []
     self.track_attrs.each do |attr|
-      self.changed_attrs <<  [attr, self.send("#{attr}_was"), self.send("#{attr}") ] if self.send("#{attr}_changed?")
+      # self.changed_attrs <<  [attr, self.send("#{attr}_was"), self.send("#{attr}") ] if self.send("#{attr}_changed?")
+      self.changed_attrs << {changed_attr: attr, old_value: self.send("#{attr}_was"), new_value: self.send("#{attr}")} if self.send("#{attr}_changed?")
     end
   end
 

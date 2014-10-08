@@ -21,3 +21,12 @@
 
 en:
   hello: "Hello world"
+  created_todo_event: "创建了任务"
+  deleted_todo_event: "删除了任务"
+  completed_todo_event: "完成了任务"
+  reopened_todo_event: "重新打开了任务"
+  change_assigned_to_todo_event: "把 %{old_user} 的任务指派给 %{new_user}"
+  set_assigned_to_todo_event: "给 %{user} 指派了任务"
+  change_end_time_todo_event: "将任务完成时间从 %{old_date} 修改为 %{new_date}"
+  set_end_time_todo_event: "将任务完成时间从 没有截止日期 修改为 %{date}"
+  created_todo_comment_event: "回复了任务"

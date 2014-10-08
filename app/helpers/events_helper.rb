@@ -29,4 +29,14 @@ module EventsHelper
     events_group << project_events
     events_group
   end
+
+  def event_content(event)
+    content = event.content
+    action = content.delete(:action)
+    if content 
+      t(action, event.content)
+    else
+      t(action)
+    end
+  end
 end

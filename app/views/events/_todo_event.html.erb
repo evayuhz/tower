@@ -6,7 +6,7 @@
       <div class="event-head">
         <a class="event-created-at"><%= todo_event_time_format(event.created_at) %></a>
         <span class="event-actor"><%= link_to event.user.name, event.user %></span>
-        <span class="event-action"><%= event.description %></span>
+        <span class="event-action"><%= event_content(event) %></span>
       </div>
       <% if event.eventable.class == Comment %>
         <div class="event-body">

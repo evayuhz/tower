@@ -10,4 +10,12 @@ class Comment < ActiveRecord::Base
 
   event_provider :created_at
 
+  private
+
+    def created_at_event_content(change)
+      if self.commentable.class == Todo
+        { action: :created_todo_comment_event }
+      end
+    end
+
 end

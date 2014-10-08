@@ -41,6 +41,7 @@ Todo.statuses.each do |status, value|
 end
 
 # project member
+own_project.members << user
 own_project.members << other
 not_joined_project.members << other
 
@@ -64,13 +65,13 @@ todo2 = joined_project.todos.create(content: "joined project's todo", author_id:
 
 4.downto(0) do |n| #day
   10.downto(1) do |t| #times
-    todo1.events.create(changed_attr: :status, old_value: Todo.statuses[:reopened], new_value: Todo.statuses[:completed],
+    todo1.events.create(content: {action: :completed_todo_event},
                         user_id: user.id, project_id: todo1.project.id, created_at: n.days.ago - (4*t).minutes )
-    todo1.events.create(changed_attr: :status, old_value: Todo.statuses[:completed], new_value: Todo.statuses[:reopened],
+    todo1.events.create(content: {action: :reopened_todo_event},
                         user_id: other.id, project_id: todo1.project.id, created_at: n.days.ago - (4*t -1).minutes )
-    todo2.events.create(changed_attr: :status, old_value: Todo.statuses[:reopened], new_value: Todo.statuses[:completed],
+    todo2.events.create(content: {action: :completed_todo_event},
                         user_id: user.id, project_id: todo2.project.id, created_at: n.days.ago - (4*t -2).minutes )
-    todo2.events.create(changed_attr: :status, old_value: Todo.statuses[:completed], new_value: Todo.statuses[:reopened],
+    todo2.events.create(content: {action: :reopened_todo_event},
                         user_id: other.id, project_id: todo2.project.id, created_at: n.days.ago - (4*t - 3).minutes )
   end
 end
@@ -78,9 +79,9 @@ end
 # other project events
 todo = not_joined_project.todos.create(content: "not joined project's todo", author_id: other.id)
 100.downto(1) do |n|
-  todo.events.create(changed_attr: :status, old_value: Todo.statuses[:reopened], new_value: Todo.statuses[:completed],
+  todo.events.create(content: {action: :completed_todo_event},
                      user_id: other.id, project_id: todo.project.id )
-  todo.events.create(changed_attr: :status, old_value: Todo.statuses[:completed], new_value: Todo.statuses[:reopened],
+  todo.events.create(content: {action: :reopened_todo_event},
                      user_id: other.id, project_id: todo.project.id )
 end
 

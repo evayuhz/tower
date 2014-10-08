@@ -41,12 +41,8 @@ class TodosController < ApplicationController
     def create_event
       if @todo.changed_attrs
         @todo.changed_attrs.each do |change|
-          if change[0] == :status  # enum status: change status string to integer 
-            change[1] = Todo.statuses[change[1]]
-            change[2] = Todo.statuses[change[2]]         
-          end
-          @todo.events.create(changed_attr: change[0], old_value: change[1], new_value: change[2],
-                                user_id: current_user.id, project_id: @project.id )
+          content = @todo.send("#{change[:changed_attr]}_event_content", change)
+          @todo.events.create(content:content, user_id: current_user.id, project_id: @project.id ) if content
         end
       end
     end

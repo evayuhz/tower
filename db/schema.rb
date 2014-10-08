@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008080230) do
+ActiveRecord::Schema.define(version: 20141008115739) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -32,9 +32,7 @@ ActiveRecord::Schema.define(version: 20141008080230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
-    t.string   "changed_attr"
-    t.string   "old_value"
-    t.string   "new_value"
+    t.text     "content"
   end
 
   add_index "events", ["eventable_id", "eventable_type"], name: "index_events_on_eventable_id_and_eventable_type", using: :btree
