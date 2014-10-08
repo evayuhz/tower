@@ -1,13 +1,15 @@
 module EventsHelper
   def link_to_eventable(event, options = {})
-    if event.eventable.class == Todo
-      todo = event.eventable
-      link_to todo.content, project_todo_path(event.project, todo) , options
-    elsif event.eventable.class == Comment
-      todo = event.eventable.todo
-      link_to todo.content, project_todo_path(event.project, todo) , options
-    elsif event.eventable.class == Project 
-      link_to event.project.name, event.eventable, options
+    evtable = event.eventable
+    if evtable.class == Todo
+      link_to evtable.content, project_todo_path(event.project, evtable) , options
+    elsif evtable.class == Comment
+      cmtable = evtable.commentable
+      if cmtable.class == Todo 
+        link_to cmtable.content, project_todo_path(event.project, cmtable) , options
+      end
+    elsif evtable.class == Project 
+      link_to event.project.name, evtable, options
     end
   end
 

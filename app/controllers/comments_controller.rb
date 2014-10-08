@@ -1,12 +1,14 @@
 class CommentsController < ApplicationController
   before_action :signed_in_user
+  load_and_authorize_resource :project 
   after_action :create_event, only: [:create]
   
   def create
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
-    @comment = @todo.comments.new(comment_params.merge(user_id: current_user.id))
-    @comment.save
+    if params[:todo_id]
+      @todo = Todo.find(:todo_id)
+      @comment = @todo.comments.new(comment_params.merge(user_id: current_user.id))
+      @comment.save
+    end
   end
 
   private

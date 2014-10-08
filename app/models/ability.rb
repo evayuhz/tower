@@ -29,11 +29,7 @@ class Ability
     end
 
     # todo
-    can [:read, :create, :update, :complete], Todo do |todo|
-      project = todo.project
-      project.author_id == user.id || project.members.include?(user)
-    end
-
+    can [:read, :create, :update, :complete], Todo
     can :destroy, Todo do |todo|
       project = todo.project
       team = project.team
@@ -43,6 +39,15 @@ class Ability
         todo.author_id == user.id
     end
 
+    # comment
+    can [:read , :create], Comment
+    can :update, Comment do |comment|
+      comment.user_id == user.id
+    end
+    can :destroy, Comment do |comment| 
+      team = comment.commentable.project.team
+      comment.user_id == user.id || team.leader_id == user.id
+    end
 
     # Define abilities for the passed in user here. For example:
     #

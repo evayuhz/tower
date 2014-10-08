@@ -13,7 +13,7 @@ class Todo < ActiveRecord::Base
 
   has_many :events, -> { includes :user }, as: :eventable
 
-  has_many :comments
+  has_many :comments, -> { includes :user }, as: :commentable
 
   # default_scope { where.not(status: statuses[:deleted]) }
   scope :incomplete, -> { where.not(status: [statuses[:completed], statuses[:deleted] ]) }
