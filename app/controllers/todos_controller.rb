@@ -2,6 +2,7 @@ class TodosController < ApplicationController
   before_action :signed_in_user
   before_action :set_project
   after_action :create_event, only: [:create, :update, :destroy, :complete]
+  
   def new
   end
 

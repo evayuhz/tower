@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :signed_in_user
   before_action :set_project, only: :show
   before_action :correct_user, only: :show
+  
   def new
   end
 

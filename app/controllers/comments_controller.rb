@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :signed_in_user
   after_action :create_event, only: [:create]
+  
   def create
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])

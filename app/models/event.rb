@@ -6,8 +6,6 @@ class Event < ActiveRecord::Base
 
   def description
     eable = self.eventable
-    p eable.class
-    p self.changed_attr
     if eable.class == Todo 
       case self.changed_attr
       when "created_at"
